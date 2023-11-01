@@ -8,9 +8,9 @@ void main() => runApp(const MaterialApp(
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
-    return GET();
+    return const GET();
   }
 }
