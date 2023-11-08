@@ -6,15 +6,10 @@ import 'package:http/http.dart' as http;
 Future<List> getAves() async {
   var url = Uri.parse('http://177.220.18.53:3306/aves');
   var response = await http.get(url);
-  if (kDebugMode) {
-    print("aaaa");
-  }
-  if (response.statusCode == 200) {
+
+  if (response.statusCode == 200) 
     return jsonDecode(utf8.decode(response.bodyBytes));
-  } else {
-    if (kDebugMode) {
-      print("entrou no else");
-    }
+  else {
     throw Exception('Erro no getAves');
   }
 }

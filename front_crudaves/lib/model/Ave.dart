@@ -1,3 +1,12 @@
+// class Ave {
+//   final int id;
+//   final String nomeCientifico;
+//   final String nome;
+//   final String apelido;
+//   final String link;
+
+//   Ave(this.id, this.nomeCientifico, this.nome, this.apelido, this.link);
+// }
 class Ave {
   int id;
   String nomeCientifico;

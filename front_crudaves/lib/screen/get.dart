@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:front_crudaves/model/Ave.dart';
@@ -21,21 +20,23 @@ class _GETState extends State<GET> {
   @override
   void initState() {
     super.initState();
-    try {
-      aves = getAves();
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    }
+    aves = getAves();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('CRUD Aves')
+        appBar: AppBar(title: Text('CRUD Aves')),
+        floatingActionButton: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => POST()),
+            );
+          },
+          child: const Icon(Icons.add),
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: FutureBuilder<List>(
           future: aves,
           builder: (context, snapshot) {
@@ -44,33 +45,29 @@ class _GETState extends State<GET> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
                   return ListTile(
+                    title: Text(
+                        '${snapshot.data![index]['nome']} ${snapshot.data![index]['apelido']}'),
+                    subtitle: Text(snapshot.data![index]['nomeCientifico']),
+                    trailing: Text('${snapshot.data![index]['id']}'),
                     leading: CircleAvatar(
                       backgroundColor: Colors.white,
                       backgroundImage:
                           NetworkImage(snapshot.data![index]['link']),
                     ),
-                    title: Text(
-                        '${snapshot.data![index]['nomeCientifico']} ${snapshot.data![index]['nome']}'),
-                    subtitle: Text(snapshot.data![index]['apelido']),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) {
+                            return VerAve(aveJson: snapshot.data![index]);
+                          },
+                        ),
+                      );
+                    },
                   );
                 },
               );
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text("Erro ao carregar aves"),
-              );
-            }
-
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => POST()),
-                );
-              },
-              child: const Icon(Icons.add), // Ícone de adição
-            );
-
+            } else if (snapshot.hasError) {}
             return const Center(
               child: CircularProgressIndicator(),
             );

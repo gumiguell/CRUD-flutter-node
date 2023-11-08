@@ -1,6 +1,6 @@
 const bd       = require ('./core/bd.js');
 const rotas    = require ('./core/rotas.js');
-
+const cors = require('cors')
 
 function middleWareGlobal (req, res, next)
 {
@@ -32,6 +32,7 @@ async function ativacaoDoServidor ()
     const app     = express();
     
     app.use(express.json());   // faz com que o express consiga processar JSON
+    app.use(cors())
     app.use(middleWareGlobal); // app.use cria o middleware global
 
     app.post  ('/aves/incluir'    , rotas.inclusao); 

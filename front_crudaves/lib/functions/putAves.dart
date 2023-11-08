@@ -1,15 +1,25 @@
-import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:front_crudaves/model/Ave.dart';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-Future<String> putAves(Map<String, dynamic> aveJson, int id) async{
-  var url = Uri.parse('http://localhost:3306/aves/${id}');
+Future<void> putAves(int id, String nomeCientifico, String nome, String apelido, String link) async {
+  final url = Uri.parse('http://177.220.18.53:3306/aves/$id');
+  final Map<String, String> headers = {'Content-Type': 'application/json'};
 
-  var response = await http.put(url, body: json.encode(aveJson), headers: {"Content-Type": "application/json"});
+  final ave = Ave(id: id, nomeCientifico: nomeCientifico, nome: nome, apelido: apelido, link: link);
+  final aveJson = jsonEncode(ave);
 
-  if(response.statusCode == 200){
-    return json.decode(response.body).toString();
+  try {
+    final response = await http.put(url, headers: headers, body: aveJson);
+
+    if (response.statusCode == 200) 
+      print('Ave atualizada com sucesso');
+    else 
+      print('Erro na atualização da ave. Código de status: ${response.statusCode}');
+
+  } catch (e) {
+    print('Erro durante a atualização da ave: $e');
   }
-
-  throw Exception(json.decode(response.body).toString());
 }
+
