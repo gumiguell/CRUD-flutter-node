@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:front_crudaves/screen/put.dart';
 import 'package:front_crudaves/screen/post.dart';
 import 'package:front_crudaves/screen/get.dart';
 

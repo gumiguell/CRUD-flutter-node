@@ -23,11 +23,8 @@ dev_dependencies:
 
 flutter_native_splash:
     color: "#FFFFFF"
-    image: "assets/images/zécarioca.png"
     android: true
     ios: true
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/images/zécarioca.png

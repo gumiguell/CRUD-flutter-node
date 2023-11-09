@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:front_crudaves/functions/getAves.dart';
 import 'package:front_crudaves/main.dart';
 import 'package:front_crudaves/functions/postAves.dart';
 import 'package:front_crudaves/model/Ave.dart';
+import 'package:front_crudaves/screen/get.dart';
 
 class POST extends StatelessWidget {
   POST({Key? key}) : super(key: key);
@@ -109,9 +111,9 @@ class POST extends StatelessWidget {
                         apelido: _apelido.text,
                         link: _link.text);
                     postAves(novaAve.toJson());
-                    Navigator.push(context, MaterialPageRoute(builder: (_) {
-                      return MainApp();
-                    }));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Ave adicionada com sucesso')),
+                    );
                   },
                   child: const Text(
                     'Adicionar',
